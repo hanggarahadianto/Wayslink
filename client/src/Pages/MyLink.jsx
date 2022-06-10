@@ -1,12 +1,11 @@
 import React from "react";
-
+import { Trash3 } from "react-bootstrap-icons";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Navbar from "../Components/Navbar";
 import Header from "../Components/Header";
-import Search from "../Components/Search";
 
 function MyLink() {
   let navigate = useNavigate();
@@ -54,7 +53,7 @@ function MyLink() {
         <Header />
       </div>
 
-      <div className="mx-auto grid grid-rows-2 gap-4 grid-cols-12 h-screen">
+      <div className="mx-auto grid grid-rows-2 gap-4 grid-cols-12 h-screen bg-white">
         <nav className="col-span-3">
           <Navbar />
         </nav>
@@ -133,12 +132,64 @@ function MyLink() {
                             src="images/Edit.png"
                             alt=""
                           />
-                          <img
-                            className=" cursor-pointer h-12 bg-gray-100 hover:bg-red-600"
-                            src="images/Delete.png"
-                            alt=""
-                          />
-                          {/*                  
+                          <label
+                            for="my-modal-4"
+                            className="btn modal-button bg-blue-100 border-none hover:bg-red-600"
+                          >
+                            <Trash3 className="w-8 h-12" />
+                          </label>
+                        </div>
+                        <input
+                          type="checkbox"
+                          id="my-modal-4"
+                          className="modal-toggle"
+                        />
+                        <label
+                          for="my-modal-4"
+                          className="modal cursor-pointer"
+                        >
+                          <label
+                            className="modal-box relative bg-slate-100"
+                            for=""
+                          >
+                            <div className=" flex justify-center bg-slate-100">
+                              <div className="bg-gray-100 p-4 rounded-md w-11/12">
+                                <p className="text-green-400 font-sm text-2xl mt-5 ml-5">
+                                  Are you sure want to remove this link ?
+                                </p>
+                                <div className="flex justify-end p-4 mt-5">
+                                  <button
+                                    onClick={() => {
+                                      deleteLink(listOfLink.id);
+                                    }}
+                                    className="bg-red-600 rounded-md text-xl w-40 h-10 mr-10"
+                                  >
+                                    <p className="text-white mt-1">Yes</p>
+                                  </button>
+                                  <button className="bg-gray-400 rounded-md text-xl h-10 w-40">
+                                    <p className="text-white mt-1">No</p>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </label>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+export default MyLink;
+
+{
+  /*                  
                             <div className="w-screen flex justify-center">
                               <div className="bg-gray-100 p-4 rounded-md w-4/6">
                                 <p className="text-green-400 font-sm text-2xl mt-5 ml-5">Are you sure want to remove this link ?</p>
@@ -160,18 +211,5 @@ function MyLink() {
                                   </button>
                                 </div>
                               </div>
-                            </div> */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-        </main>
-      </div>
-    </div>
-  );
+                            </div> */
 }
-
-export default MyLink;

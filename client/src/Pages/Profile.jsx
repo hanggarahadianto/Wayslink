@@ -6,34 +6,47 @@ import { useState, useEffect } from "react";
 // import { AuthContext } from "../Helpers/AuthContext";
 
 function Profile() {
-  const [authState, setAuthState] = useState({
+  const [profile, setProfile] = useState([]);
+  const [form, setForm] = useState({
+    name: "",
     email: "",
-    id: 0,
-    status: false,
   });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/auth/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((response) => {
-        if (response.data.error) {
-          setAuthState({ ...authState, status: false });
-        } else {
-          setAuthState({
-            email: response.data.email,
-            id: response.data.id,
-            status: true,
-          });
-        }
-      });
+    axios.get("http://localhost:3001/profile").then((response) => {
+      console.log(response.data);
+      setProfile(response.data);
+    });
   }, []);
+  const onSubmit = (e) => {
+    try {
+      e.preventDefault();
+
+      const data = new FormData();
+      data.set("name", form.name);
+      data.set("username", form.username);
+      data.set("bio", form.bio);
+      data.set("image", form.image[0], form.image[0].name);
+
+      axios
+        .post("http://localhost:3001/profile", data, {
+          // headers: {
+          //   accessToken: localStorage.getItem("accessToken"),
+          // },
+        })
+        .then((response) => {
+          //   const postToAdd = { caption: caption, image: image };
+          //   set([...account, accountToAdd]);
+          // });
+          console.log(response.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div className="relative">
+    <div className="relative bg-white">
       <div className="">
         <Header />
       </div>
@@ -42,25 +55,38 @@ function Profile() {
         <nav className="col-span-3">
           <Navbar />
         </nav>
-          <main className="col-span-9 bg-gray-100 mt-16 h-screen">
-            <div className="p-6">
-              <p className=" font-bold text-3xl">My Information</p>
-              <form className="block p-6 rounded-lg shadow-lg bg-white mt-5 ">
-                <div className="mb-3">
-                  <p className="text-gray-400 font-medium">Name</p>
-                  <p className="font-bold text-xl">{authState.name}</p>
-                </div>
-                <div className="mt-10">
-                  <p className="text-gray-400 font-medium">Email</p>
-                  <p className="font-bold text-xl">{authState.email}</p>
-                </div>
-              </form>
-              <div className="flex justify-end mt-10">
-                <img className="mr-10 cursor-pointer" src="images/save.png" alt="" />
-                <img className="mr-10 cursor-pointer" src="images/delete.png" alt="" />
+        <main className="col-span-9 bg-gray-100 mt-16 h-screen">
+          <div className="p-6">
+            <p className=" font-bold text-3xl">My Information</p>
+            <form className="block p-6 rounded-lg shadow-lg bg-white mt-5 ">
+              <div className="mb-3 px-4 py-2">
+                <input
+                  placeholder="Name"
+                  className="w-96 border-none outline-none text-gray-700 font-bold text-xl"
+                />
+              </div>
+              <div className="mt-10 px-4 py-2">
+                <input
+                  placeholder="Email"
+                  className="w-96 border-none outline-none text-gray-700 font-bold text-xl"
+                />
+              </div>
+            </form>
+
+            <div className="flex justify-end">
+              <div className=" mt-10 mr-10">
+                <button className="bg-yellow-400 px-8 py-2 rounded-xl w-32">
+                  <p className="text-xl font-bold text-gray-600">Edit</p>
+                </button>
+              </div>
+              <div className=" mt-10">
+                <button className="bg-red-400 px-8 py-2 rounded-xl w-32">
+                  <p className="text-xl font-bold text-gray-600">Delete</p>
+                </button>
               </div>
             </div>
-          </main>
+          </div>
+        </main>
       </div>
     </div>
   );

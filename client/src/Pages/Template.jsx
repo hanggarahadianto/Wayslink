@@ -71,7 +71,7 @@ function Template() {
   }, []);
 
   return (
-    <div className="relative ">
+    <div className="relative bg-white">
       <div className="">
         <Header />
       </div>
@@ -83,70 +83,74 @@ function Template() {
 
         <div className="col-span-9 bg-gray-200 rounded-lg h-screen">
           <p className=" font-bold text-3xl ml-5 mt-5">Create Link</p>
-          <div className="bg-red-300 ml-10 rounded-lg px-4 py-2 mt-10 w-3/5">
-            <div className="ml-5 mt-10">
-              <form onSubmit={onSubmit} className="">
-                <div className="flex">
-                  <div className="bg-green-400 w-32 h-32 rounded-lg">
-                    {preview && (
-                      <div className="">
-                        {/* <img className="h-28 w-28 p-2" src="images/barcode.png" alt="" /> */}
-                        <img
-                          className="w-32 h-32 object-cover "
-                          src={preview}
-                          alt=""
-                        />
-                      </div>
-                    )}
+
+          <div className="flex">
+            <div className="bg-gray-100 ml-10 rounded-lg px-4 py-2 mt-10 w-3/5">
+              <div className="ml-5 mt-10">
+                <form onSubmit={onSubmit} className="">
+                  <div className="flex">
+                    <div className="bg-green-400 w-32 h-32 rounded-lg">
+                      {preview && (
+                        <div className="">
+                          {/* <img className="h-28 w-28 p-2" src="images/barcode.png" alt="" /> */}
+                          <img
+                            className="w-32 h-32 object-cover "
+                            src={preview}
+                            alt=""
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="relative flex">
+                      <UploadIcon className="w-16 ml-10 " />
+                      <input
+                        onChange={handleChange}
+                        multiple="multiple"
+                        name="image"
+                        type="file"
+                        id="upload"
+                        className="absolute mt-7 cursor-pointer w-24 h-20 opacity-0"
+                      />
+                    </div>
                   </div>
 
-                  <div className="relative flex">
-                    <UploadIcon className="w-16 ml-10 " />
-                    <input
-                      onChange={handleChange}
-                      multiple="multiple"
-                      name="image"
-                      type="file"
-                      id="upload"
-                      className="absolute mt-7 cursor-pointer w-24 h-20 opacity-0"
-                    />
+                  <div className="w-full overflow-hidden shadow-md mt-10">
+                    <div className="mt-3 border-b-4 border-teal-500 py-2">
+                      <input
+                        onChange={handleChange}
+                        name="title"
+                        className=" w-80 appearance-none bg-transparent border-none leading-tight outline-none focus:outline-none px-4 py-2"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Ex. Your Title"
+                      ></input>
+                    </div>
+                    <div className="mt-3 border-b-4 border-teal-500 py-2">
+                      <input
+                        onChange={handleChange}
+                        name="description"
+                        className="w-96 appearance-none bg-transparent border-none leading-tight focus:outline-none px-4 py-2"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Ex. Description Here"
+                      ></input>
+                    </div>
                   </div>
-                </div>
-
-                <div className="w-full overflow-hidden shadow-md">
-                  <div className="mt-3 border-b-4 border-teal-500 py-2">
-                    <p className="text-gray-400 font-medium">Title</p>
-                    <input
-                      onChange={handleChange}
-                      name="title"
-                      className=" w-80 appearance-none bg-transparent border-none leading-tight outline-none focus:outline-none "
-                      type="text"
-                      placeholder="Ex. Your Title"
-                    ></input>
+                  <div className="flex justify-center">
+                    <button className="bg-yellow-400 rounded-lg px-8 py-2 w-96 mt-10">
+                      <p className="text-xl font-bold text-gray-700">Publish</p>
+                    </button>
                   </div>
-                  <div className="mt-3 border-b-4 border-teal-500 py-2">
-                    <p className="text-gray-400 font-medium">Description</p>
-                    <input
-                      onChange={handleChange}
-                      name="description"
-                      className="w-96 appearance-none bg-transparent border-none leading-tight focus:outline-none "
-                      type="text"
-                      placeholder="Ex. Description Here"
-                    ></input>
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <button className="bg-yellow-400 rounded-lg px-8 py-2 w-96 mt-10">
-                    <p className="text-xl font-bold text-gray-700">Publish</p>
-                  </button>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="">
-          <div className="flex justify-center mt-24 ml-16 ">
-            <img src="images/ss1.png" alt="" />
+
+            <div className="">
+              <div className="flex justify-center mt-24 ml-16 ">
+                <img src="images/ss1.png" alt="" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
