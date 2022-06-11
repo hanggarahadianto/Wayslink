@@ -3,8 +3,8 @@ import React from "react";
 import Header from "../Components/Header";
 
 import "../App.css";
-import Login from "../Components/Login/Login";
-import Register from "../Components/Register/Register";
+import Login from "../Components/Login";
+import Register from "../Components/Register";
 
 function LandingPage() {
   return (
