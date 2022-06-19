@@ -1,4 +1,11 @@
 {
   "git.ignoreLimitWarning": true,
-  "cSpell.words": ["browserslist", "daisyui", "heroicons", "mylink", "Uniqlo"]
+  "cSpell.words": [
+    "browserslist",
+    "daisyui",
+    "heroicons",
+    "mylink",
+    "Uniqlo",
+    "wayslink"
+  ]
 }

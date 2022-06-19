@@ -1,69 +1,110 @@
-let chai = require("chai");
-let chaiHttp = require("chai-http");
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const { response } = require("../server");
+const app = require("../server");
 
-let userRouter = require("../routes/user");
-
-chai.should();
 chai.use(chaiHttp);
+chai.should();
 
-describe("User API", () => {
-  describe("get/api/user", () => {
-    it("It should get all user", (done) => {
+describe("User", () => {
+  describe("GET/", () => {
+    it("should get all user", (done) => {
       chai
-        .request(userRouter)
-        .get("/api/user")
-        .end((err, response) => {
-          response.should.have.status(200);
-          response.body.should.be.a("array");
+        .request(app)
+        .get("/user")
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          done();
+        });
+    });
+    it("should get detail user", (done) => {
+      const id = 2;
+      chai
+        .request(app)
+        .get(`/user/${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.data.should.have.property("id");
+          res.body.data.should.have.property("email");
+          res.body.data.should.have.property("password");
+          res.body.data.should.have.property("name");
+          done();
+        });
+    });
+
+    it("should not get a detail user", (done) => {
+      const id = 40;
+      chai
+        .request(app)
+        .get(`/user/${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          // res.text.should.be.eq("The user doesn't exist");
           done();
         });
     });
   });
-  describe("get/api/user/:id", () => {
-    it("it should get user by id", (done) => {
-      const id = 1;
-      chai
-        .request(userRouter)
-        .get("/api/userRouter" / +1)
-        .end((err, response) => {
-          response.should.have.status(200);
-          response.body.should.be.a("object");
-          response.body.should.have.property("id");
-          response.body.should.have.property("email");
-          response.body.should.have.property("password");
-          response.body.should.have.property("name");
-          done();
-        });
-    });
-    it("it should not get a user id", (done) => {
-      const id = 403;
-      chai
-        .request(userRouter)
-        .get("/api/userRouter" + id)
-        .end((err, response) => {
-          response.should.have.status(404);
-          response.text.should.be.eq("The user id doesn't exist");
-          done();
-        });
-    });
-  });
-  describe("POST /userRouter/user", () => {
-    it("it should post a new user", (done) => {
-      const user = {
-        email: "hangga@gmail.com",
+});
+
+describe("user", () => {
+  describe("POST/", () => {
+    it("should post user data", (done) => {
+      const newUser = {
+        email: "hanggarahadianto@gmail.com",
         password: "12345",
         name: "hangga rahadianto",
       };
+
       chai
-        .request(userRouter)
-        .post("/api/user")
-        .send(user)
-        .end((err, response) => {
-          response.should.have.status(201);
-          response.body.should.be.a("object");
-          response.body.should.have.property("email");
-          response.body.should.have.property("password");
-          response.body.should.have.property("name");
+        .request(app)
+        .post("/user/register")
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          // res.body.should.have.property("email");
+          done();
+        });
+    });
+
+    it("it should not post a user data without property", (done) => {
+      const newUser = {
+        email: "hanggarahadianto@gmail.com",
+      };
+      chai
+        .request(app)
+        .post("/user/register")
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+});
+
+describe("user", () => {
+  describe("DELETE/", () => {
+    it("should delete user", (done) => {
+      const id = 1;
+      chai
+        .request(app)
+        .delete(`/user/${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+
+    it("it should not delete user", (done) => {
+      const id = 39;
+      chai
+        .request(app)
+        .delete(`/user/${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
           done();
         });
     });

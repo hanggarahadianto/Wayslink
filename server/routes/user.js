@@ -7,6 +7,15 @@ const jwt = require("jsonwebtoken");
 const { validateToken } = require("../middleWares/authMiddleware");
 const { registerSchema, loginSchema } = require("../helpers/validationSchema");
 
+router.get("/", async (req, res) => {
+  let listOfUser = await user.findAll({
+    attributes: {
+      exclude: ["createdAt", "updatedAt"],
+    },
+  });
+  res.json(listOfUser);
+});
+
 router.post("/register", async (req, res) => {
   const { error } = registerSchema.validate(req.body);
 

@@ -20,6 +20,6 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {
-    console.log("This server is running ... ");
+    console.log("This server is running on Port 3001 ");
   });
 });
