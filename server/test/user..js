@@ -30,6 +30,9 @@ describe("User", () => {
           res.body.data.should.have.property("email");
           res.body.data.should.have.property("password");
           res.body.data.should.have.property("name");
+          res.body.data.email.should.be.a("string");
+          res.body.data.password.should.be.a("string");
+          res.body.data.name.should.be.a("string");
           done();
         });
     });
@@ -41,7 +44,6 @@ describe("User", () => {
         .get(`/user/${id}`)
         .end((err, res) => {
           res.should.have.status(200);
-          // res.text.should.be.eq("The user doesn't exist");
           done();
         });
     });
@@ -64,7 +66,6 @@ describe("user", () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
-          // res.body.should.have.property("email");
           done();
         });
     });
@@ -105,6 +106,7 @@ describe("user", () => {
         .delete(`/user/${id}`)
         .end((err, res) => {
           res.should.have.status(200);
+
           done();
         });
     });
